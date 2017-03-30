@@ -1,11 +1,14 @@
 "use strict"
 
 class Dice {
-  constructor() {
-
+  constructor(params) {
+    this._diceRandom;
+    this.params=params;
   }
-  roll() {
-    
+  roll() {//random kecepatan
+    let temp=Math.ceil(this.params/4);
+    this._diceRandom= Math.floor((Math.random() * temp) + 1);
+    return this._diceRandom;
   }
 }
 
