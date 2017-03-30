@@ -12,3 +12,6 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let racer = new JSRacer(["a","b","c","d"], 20);
+racer.print_board()
+  // console.log(`pemenang = ${racer.pemenang}`)
