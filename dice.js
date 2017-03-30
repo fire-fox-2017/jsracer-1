@@ -4,8 +4,8 @@ class Dice {
   constructor() {
 
   }
-  roll() {
-    
+  roll(min, max) {
+  	return Math.floor(Math.random() * (max - min)) + min;
   }
 }
 
