@@ -32,10 +32,10 @@ class JSRacer {
   print_line(player, pos) {
     // print each player
     let track = '';
-    for (let t = 0 ; t <= this._length ; t++) {
+    for (let t = 0 ; t < this._length ; t++) {
         if (pos == t)
-          track += ` ${player} `;
-        track += "|   ";
+          track += ` ${player} |`;
+        track += "   |";
     }
     console.log(track);
   }
