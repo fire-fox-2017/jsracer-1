@@ -19,7 +19,7 @@ race.print_board();
 
 
 // simulate racing
-while(!race.finished()){
+do {
   race.reset_board();
   race.print_board();
 
@@ -30,6 +30,8 @@ while(!race.finished()){
 
   sleep(500);
 
-}
+} while(!race.finished());
 
+// race.reset_board();
+// race.print_board();
 race.winner();

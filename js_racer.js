@@ -35,13 +35,18 @@ class JSRacer {
     for (let t = 0 ; t < this._length ; t++) {
         if (pos == t)
           track += ` ${player} |`;
-        track += "   |";
+        else if (pos == this._length && t == this._length - 1)
+          track += ` ${player} |`;
+        else
+          track += "   |";
     }
     console.log(track);
   }
   advanced_player(player) {
     // increase player position using dice
     this._positions[player] += this._dice.roll();
+    if( this._positions[player] > 20)
+      this._positions[player] = 20;
     console.log(`${player} ${this._positions[player]}`);
   }
   finished() {
