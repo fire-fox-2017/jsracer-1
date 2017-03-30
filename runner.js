@@ -12,3 +12,24 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let players = ['a', 'b', 'c', 'd', 'e'];
+let length = 20;
+let race = new JSRacer(players, length);
+race.print_board();
+
+
+// simulate racing
+while(!race.finished()){
+  race.reset_board();
+  race.print_board();
+
+  // move players
+  for (let i = 0 ; i < players.length ; i++) {
+      race.advanced_player(players[i]);
+  }
+
+  sleep(500);
+
+}
+
+race.winner();
