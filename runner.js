@@ -10,5 +10,5 @@ function sleep(milliseconds) {
     }
   }
 }
-
+let newPlayer = new JSRacer('a','b',20,0)
 // Your code here...
