@@ -6,7 +6,8 @@ class JSRacer {
   constructor(players, length) {
     this._players = players;
     this._length = length;
-
+    this._winner = "";
+    this._finished = false;
     // need to have players position
     // initialize the position to 0
     this._positions = new Object();
@@ -44,9 +45,26 @@ class JSRacer {
   }
   advanced_player(player) {
     // increase player position using dice
-    this._positions[player] += this._dice.roll();
-    if( this._positions[player] > 20)
-      this._positions[player] = 20;
+
+    if (!this._finished) {
+      this._positions[player] += this._dice.roll();
+
+      if( this._positions[player] > this._length ){
+        this._positions[player] = this._length;
+        this._winner = player;
+        this._finished = true;
+        console.log(`winner is ${this._winner}`);
+      }
+
+    }
+    else if (this._finished && this._winner != player){
+      // check if one player is already finished, then the other cannot advance to length
+      this._positions[player] += this._dice.roll();
+      if( this._positions[player] > this._length)
+        this._positions[player] = this._length - 2;
+    }
+
+
     console.log(`${player} ${this._positions[player]}`);
   }
   finished() {
@@ -55,9 +73,9 @@ class JSRacer {
   }
   winner() {
     // print the winner?
-    let winner = Object.keys(this._positions).find(key => this._positions[key] >= this._length);
-    if ( winner != null)
-      console.log(`Player '${winner}' is the Winner!`);
+    // let winner = Object.keys(this._positions).find(key => this._positions[key] >= this._length);
+    if ( this._finished )
+      console.log(`Player '${this._winner}' is the Winner!`);
     else
       console.log(`No Winner yet.`);
   }

@@ -30,8 +30,8 @@ do {
 
   sleep(500);
 
-} while(!race.finished());
+} while(!race._finished);
 
 // race.reset_board();
-// race.print_board();
+race.print_board();
 race.winner();
