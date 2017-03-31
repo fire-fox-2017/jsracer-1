@@ -6,7 +6,7 @@ class JSRacer {
   constructor(players, length) {
     this._players = players;
     this._length = length;
-    this._winner = "";
+    this._winner = [];
     this._finished = false;
     // need to have players position
     // initialize the position to 0
@@ -37,7 +37,7 @@ class JSRacer {
         if (pos == t)
           track += ` ${player} |`;
         else if (pos == this._length && t == this._length - 1)
-          track += ` ${player} |`;
+          track += `   | ${player} `;
         else
           track += "   |";
     }
@@ -45,13 +45,21 @@ class JSRacer {
   }
   advanced_player(player) {
     // increase player position using dice
+    this._positions[player] += this._dice.roll();
 
+    if( this._positions[player] >= this._length ){
+      this._positions[player] = this._length;
+      this._winner.push(player);
+      this._finished = true;
+    }
+
+    /*
     if (!this._finished) {
       this._positions[player] += this._dice.roll();
 
       if( this._positions[player] > this._length ){
         this._positions[player] = this._length;
-        this._winner = player;
+        this._winner.push(player);
         this._finished = true;
         console.log(`winner is ${this._winner}`);
       }
@@ -63,19 +71,35 @@ class JSRacer {
       if( this._positions[player] > this._length)
         this._positions[player] = this._length - 2;
     }
-
+    */
 
     console.log(`${player} ${this._positions[player]}`);
   }
   finished() {
     // return boolean?
-    return (Object.keys(this._positions).find(key => this._positions[key] >= this._length)) != null ? true : false;
+    // return (Object.keys(this._positions).find(key => this._positions[key] >= this._length)) != null ? true : false;
+    return this._finished;
   }
   winner() {
     // print the winner?
     // let winner = Object.keys(this._positions).find(key => this._positions[key] >= this._length);
+    /*
     if ( this._finished )
       console.log(`Player '${this._winner}' is the Winner!`);
+    else
+      console.log(`No Winner yet.`);
+    */
+
+    if (this._winner.length == 1)
+      console.log(`Player '${this._winner[0]}' is the Winner!`);
+    else if (this._winner.length > 1) {
+      let msg = "The players are tied: ";
+      for (let i = 0 ; i < this._winner.length ; i++) {
+        msg += `${this._winner[i]}`
+        if ( i != this._winner.length -1 ) msg += ", ";
+      }
+      console.log(msg);
+    }
     else
       console.log(`No Winner yet.`);
   }
