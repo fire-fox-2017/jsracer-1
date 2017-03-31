@@ -11,4 +11,16 @@ function sleep(milliseconds) {
   }
 }
 
+function reset_board() {
+  console.log("\x1B[2J")
+}
+
 // Your code here...
+let balapan = new JSRacer(['a','b','c'], 20, 0)
+balapan.print_board();
+sleep(3000)
+reset_board()
+balapan.advanced_player()
+
+
+
