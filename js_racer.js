@@ -1,6 +1,6 @@
 "use strict"
 
-import Dice from "./dice.js"
+const { Dice } = require('./dice.js')
 
 class JSRacer {
   constructor(players, length) {
@@ -11,6 +11,7 @@ class JSRacer {
     this.snake = this.set_snake();
     this.ladder = this.set_ladder();
     this.finished = false;
+    this.message = "";
   }
   get_random(max, min) {
     return Math.floor(Math.random() * (max - min - 1) + min);
@@ -65,7 +66,6 @@ class JSRacer {
   advanced_player() {
     let dice = new Dice();
     let step = dice.roll();
-    debugger;
     // Checking to avoid stepping over the finish line
     if (this.players[this.turn].position + step >= this.length - 1) {
       this.players[this.turn].position = this.length - 1;
@@ -75,19 +75,22 @@ class JSRacer {
     // Checking if there is a trap or a gift
     if (this.players[this.turn].position == this.snake[0]) {
       this.players[this.turn].position -= this.snake[1];
+      this.message = "Player " + this.players[this.turn].name + " stepped into a snake, move backwards " + this.snake[1] + " steps.";
     } else if (this.players[this.turn].position == this.ladder[0]) {
       this.players[this.turn].position += this.ladder[1];
+      this.message = "Player " + this.players[this.turn].name + " get a ladder, move forwards "+ this.ladder[1] + " steps.";
     }
+    console.log(this.message);
     // Change state to finished if a player reach the finish line
     if (this.players[this.turn].position == this.length - 1) {
-      this.finished(this.turn);
+      this.finish(this.turn);
     }
     // Change turns
     this.turn = (this.turn + 1) % this.players.length;
 
     return this;
   }
-  finished(turn) {
+  finish(turn) {
     this.winner(turn);
     this.finished = true;
   }
@@ -99,10 +102,6 @@ class JSRacer {
   }
 }
 
-let jsracer = new JSRacer(["A","B","C","D"], 30);
-jsracer.print_board();
-console.log("print board berhasil");
-jsracer.advanced_player();
-console.log("advanced_player berhasil");
-
-export default JSRacer
+module.exports = {
+  JSRacer
+}
