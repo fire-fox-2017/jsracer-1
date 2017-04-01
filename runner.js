@@ -10,5 +10,5 @@ function sleep(milliseconds) {
     }
   }
 }
-
-// Your code here...
+let Racer = new JSRacer (["a","b","c","d"],30)
+Racer.print_board();
