@@ -38,6 +38,7 @@ class JSRacer {
       langkah = dadu.roll();
       if(this._posisi[i] + langkah > this._panjang){
         this._posisi[i] = this._panjang;
+        this._pemenang.push(this._pemain[i]);
       } else {
         this._posisi[i]  = this._posisi[i] + langkah;
       }
@@ -65,12 +66,7 @@ class JSRacer {
   }
 
   winner() {
-      for (var i = 0; i < this._posisi.length; i++) {
-        if(this._posisi[i] === this._panjang){
-          this._pemenang.push(this._pemain[i]);
-        }
-      }
-      console.log(`Pemenangnya adalah : ${this._pemenang}`);
+      console.log(`Pemenangnya : ${this._pemenang}`);
     }
 
   reset_board() {
