@@ -36,7 +36,7 @@ class JSRacer {
     let dadu = new Dice();
     for (var i = 0; i < player.length; i++) {
       langkah = dadu.roll();
-      if(this._posisi[i] + langkah > this._panjang){
+      if(this._posisi[i] + langkah >= this._panjang){
         this._posisi[i] = this._panjang;
         this._pemenang.push(this._pemain[i]);
       } else {
@@ -66,7 +66,12 @@ class JSRacer {
   }
 
   winner() {
-      console.log(`Pemenangnya : ${this._pemenang}`);
+      // for (var i = 0; i < this._posisi.length; i++) {
+      //   if(this._posisi[i] === this._panjang){
+      //     this._pemenang.push(this._pemain[i]);
+      //   }
+      // }
+      console.log(`Pemenangnya adalah : ${this._pemenang}`);
     }
 
   reset_board() {
