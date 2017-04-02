@@ -44,11 +44,11 @@ class JSRacer {
 
   advanced_player() {
     for (let i = 0; i < this._setPlayers.length; i++) {
-      let lastPos = this._setPlayers[i].pos += this._dice.roll(6, 1);
-      if(this._setPlayers[i].pos > this._length - 2){
+      let lastPos = this._finish.isWinner == true ? this._setPlayers[i].pos += this._dice.roll(0, 0) : this._setPlayers[i].pos += this._dice.roll(7, 1);
+      if(this._setPlayers[i].pos >= (this._length - 1)){
         this._finish.name = this._setPlayers[i].name;
         this._finish.isWinner = true;
-        this.print_line(this._setPlayers[i].name, this._length-2)
+        this.print_line(this._setPlayers[i].name, this._length)
       }else{
         this.print_line(this._setPlayers[i].name, lastPos)
       }
@@ -59,16 +59,18 @@ class JSRacer {
   play() {
     do {
       //this._finish ? console.log(' Game is Over ') : this.advanced_player()
-      this.advanced_player()
-      this.sleep(2000)
-      this.reset_board()
+        this.sleep(700)
+        this.reset_board()
+        this.advanced_player()
+        
       //console.log('--------------------------------------------------------------');
-      if(this._finish.isWinner === true){
-        this.print_board()
-        console.log(this._finish.name + " is the Winner !!")
-      }
+      // if(this._finish.isWinner === true){
+      //   this.print_line(this._finish.name, this._length-1)
+      //   console.log(this._finish.name + " is the Winner !!")
+      // }
     } while(this._finish.isWinner === false)
-
+    //this.advanced_player()
+    console.log(this._finish.name + " is the Winner !!")
   }
 
   // finished() {
