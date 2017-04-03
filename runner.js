@@ -11,4 +11,7 @@ function sleep(milliseconds) {
   }
 }
 
+let jsRacer = new JSRacer(['a', 'b', 'c', 'd', 'e'], 21, 0);
+jsRacer.print_board();
+jsRacer.advanced_player();
 // Your code here...
