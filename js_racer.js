@@ -1,90 +1,87 @@
-"use strict"
+'use strict'
 
 import Dice from "./dice.js"
 
 class JSRacer {
   constructor(players, length, pos) {
-    this.players = players;
-    this.length = length;
-    this.pos = pos;
-    this.playersObj = this.create_player_obj();
-    this.winner = {name: '', isWin : false};
+    this._players = players;
+    this._setPlayers = this.setObjPlayers();
+    this._length = length;
+    this._pos = pos;
+    this._dice = new Dice();
+    this._finish = { name : '', isWinner : false }
   }
 
-  create_player_obj() {
-    let objContainer = [];
-    for(let i = 0; i < this.players.length; i++) {
-      let playerObj = {
-        'name': this.players[i],
-        'pos': 0,
-        'isWon': false
+  setObjPlayers() {
+    let arr = [];
+    for (let i = 0; i < this._players.length; i++) {
+      let player = {
+        name: this._players[i],
+        pos: 0
       }
-      objContainer.push(playerObj);
+      arr.push(player)
     }
-    return objContainer;
+    return arr
   }
 
   print_board() {
-    for(let i = 0; i < this.playersObj.length; i++) {
-      this.print_line(this.playersObj[i].name, this.playersObj[i].pos);
+    for (let i = 0; i < this._setPlayers.length; i++) {
+      this.print_line(this._setPlayers[i].name, this._setPlayers[i].pos)
     }
   }
-
   print_line(player, pos) {
     let line = [];
-    for(let i = 0; i < this.length; i++) {
-      if(pos === i) {
-        line.push(player);
-      }
+    for (let i = 0; i <= this._length; i++) {
+      if (pos == i) {
+        line.push(player)
+      }else{
         line.push(' ');
+      }
+
     }
-    console.log(line.join('|'));
+    console.log(line.join("|"));
   }
 
-  advanced_player(player) {
-    for(let i = 0; i < this.playersObj.length; i++) {
-      let lastPos = this.playersObj[i].pos += Dice.roll();
-      if(lastPos >= this.length - 2){
-        this.print_line(this.playersObj[i].name, this.length - 1);
-        this.playersObj[i].pos = this.length - 1;
-        this.winner.name = this.playersObj[i].name;
-        this.winner.isWin = true;
+  advanced_player() {
+    for (let i = 0; i < this._setPlayers.length; i++) {
+      let lastPos = this._finish.isWinner == true ? this._setPlayers[i].pos += this._dice.roll(0, 0) : this._setPlayers[i].pos += this._dice.roll(7, 1);
+      if(this._setPlayers[i].pos >= (this._length - 1)){
+        this._finish.name = this._setPlayers[i].name;
+        this._finish.isWinner = true;
+        this.print_line(this._setPlayers[i].name, this._length)
       }else{
-        this.print_line(this.playersObj[i].name, lastPos);
+        this.print_line(this._setPlayers[i].name, lastPos)
       }
+
     }
   }
 
   play() {
     do {
-      if(this.winner.isWin === false) {
-        this.advanced_player();
-        this.sleep(1000);
-        this.reset_board();
-      }
-    } while (this.winner.isWin === false) //kondisi yang terus jalan
-    this.print_board();
-    console.log(this.winner.name +" is Winner !!")
+        this.sleep(700)
+        this.reset_board()
+        this.advanced_player()
+
+    } while(this._finish.isWinner === false)
+    console.log(this._finish.name + " is the Winner !!")
   }
 
-  finished() {
-
+  winner(player) {
+    return 'you win' + player
   }
-  winner() {
-
-  }
-
-  // sleep(milliseconds) {
-  //   var start = new Date().getTime();
-  //   for (var i = 0; i < 1e7; i++) {
-  //     if ((new Date().getTime() - start) > milliseconds) {
-  //       break;
-  //     }
-  //   }
-  // }
 
   reset_board() {
     console.log("\x1B[2J")
   }
+
+  sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+        break;
+      }
+    }
+  }
 }
+
 export default JSRacer

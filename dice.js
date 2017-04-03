@@ -1,20 +1,11 @@
 "use strict"
 
-class Dice {
+class Dice{
   constructor() {
-    this.num = 0;
   }
 
-  static roll() {
-    let getRandomInt = (min, max) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-
-      let randomNum = Math.floor(Math.random() * (max - min + 1) + min);
-      return randomNum;
-    }
-    this.num = getRandomInt(1, 6);
-    return this.num;
+  roll(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
 
