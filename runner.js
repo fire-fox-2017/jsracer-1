@@ -11,4 +11,15 @@ function sleep(milliseconds) {
   }
 }
 
+function reset_board() {
+  console.log("\x1B[2J")
+}
+
+
 // Your code here...
+let newGame = new JSRacer(['a', 'b', 'c'], 30, 0);
+
+newGame.print_board();
+sleep(2000)
+reset_board()
+newGame.play();
