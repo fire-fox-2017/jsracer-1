@@ -5,7 +5,8 @@ class Dice {
 
   }
   roll() {
-    
+    //random 1-5
+    return Math.floor(Math.random() * 5)+1;
   }
 }
 
