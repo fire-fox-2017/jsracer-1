@@ -13,22 +13,31 @@ class JSRacer {
   print_board() {
     for(let i =0;i<this.players.length;i++){
       if(this.finished()){
-        console.log(`Permainan berakhir, pemenangnya : ${this.winner}`);
-        break;
+
+        console.log(this.print_line(this.players[i].name,this.players[i].pos));
+
+
       }else{
-        this.print_line(this.players[i].name,this.players[i].pos);
-
+        console.log(this.print_line(this.players[i].name,this.players[i].pos));
       }
-
+    }
+    if(this.finished()){
+      console.log(`Permainan berakhir, pemenangnya : ${this.winner}`);
 
     }
+
     console.log('\n');
 
   }
 
   print_line(player, pos) {
+    if(pos>=this.panjang){
+      garis='||||||||||||||||||||'+player;
+      return garis
+    }
     let garis='';
     for(let i=0;i<this.panjang;i++){
+
 
       if(i==pos){
         garis=garis+player;
@@ -37,8 +46,9 @@ class JSRacer {
       }
 
     }
-    console.log(garis);
+    return garis;
   }
+
   advanced_player(player) {
     this.players[player].pos =this.players[player].pos+this.nilai.roll();
 

@@ -21,7 +21,7 @@ let racer = new JSRacer(player,20);
 let i=0;
 racer.reset_board();
 racer.print_board();
-sleep(1000);
+sleep(100);
 while(!racer.finished()){
   i++;
   if(i==1){
@@ -36,10 +36,10 @@ while(!racer.finished()){
 
   racer.reset_board();
   racer.print_board();
-  sleep(1000);
-
-
+  sleep(100);
 }
+
+
 
 
 /*
