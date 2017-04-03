@@ -19,8 +19,10 @@ class JSRacer {
     return tempPlayer;
   }
   print_board() {
+    var dice = new Dice();
     for (let b=0;b<this._players.length;b++){
-      this.print_line(this._players[b],dice.roll());
+      let a = dice.roll();
+      this.print_line(this._players[b],a);
     }
   }
   print_line(player,pos) {
@@ -38,8 +40,9 @@ class JSRacer {
     var dice = new Dice();
     for(let x=0;x<this._length;x++){
       for (let i = 0; i < this._players.length; i++) {
-        this._players[i].position += dice.roll();
-        this.print_line(this._players[i].name, this._players[i].position);
+        let playing = this._players[i].position;
+        let roll = playing + dice.roll();
+        this.print_line(this._players[i].name, roll);
         if (this._players[i].position >= this._length) {
           return finished();
         }
