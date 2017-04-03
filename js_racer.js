@@ -6,23 +6,24 @@ class JSRacer {
     this._players = players;
     this._length = length;
     this._sides = sides;
+    this._setPlayers = this.players();
+    this._finish = { name : '', isWinner : false }
+    this._dice = new Dice();
   }
   players(players){
-    let tempPlayer = [];
-    for (let i = 0; i < players.length; i++) {
-      let obj = {
-        name: players[i],
-        position: 0
+    let arr = [];
+    for (let i = 0; i < this._players.length; i++) {
+      let player = {
+        name: this._players[i],
+        pos: 0
       }
-      tempPlayer.push(obj);
+      arr.push(player)
     }
-    return tempPlayer;
+    return arr;
   }
   print_board() {
-    var dice = new Dice();
-    for (let b=0;b<this._players.length;b++){
-      let a = dice.roll();
-      this.print_line(this._players[b],a);
+    for (let i = 0; i < this._setPlayers.length; i++) {
+      this.print_line(this._setPlayers[i].name, this._setPlayers[i].pos)
     }
   }
   print_line(player,pos) {
@@ -37,30 +38,39 @@ class JSRacer {
     console.log(track.join('|'));
   }
   advanced_player(play) {
-    var dice = new Dice();
-    for(let x=0;x<this._length;x++){
-      for (let i = 0; i < this._players.length; i++) {
-        let playing = this._players[i].position;
-        let roll = playing + dice.roll();
-        this.print_line(this._players[i].name, roll);
-        if (this._players[i].position >= this._length) {
-          return finished();
-        }
+    this.reset_board();
+    for (let i = 0; i < this._setPlayers.length; i++) {
+      if(this._setPlayers[i].pos >= this._length - 2){
+        this._finish.name = this._setPlayers[i].name;
+        this._finish.isWinner = true;
+        this.print_line(this._setPlayers[i].name, this._length)
       }
-      break;
+
+      if(this._finish.isWinner == true){
+        this._setPlayers[i].pos = this._setPlayers[i].pos+this._dice.roll(0);
+        this.print_line(this._setPlayers[i].name, this._setPlayers[i].pos);
+      }else{
+        this._setPlayers[i].pos = this._setPlayers[i].pos+this._dice.roll(6);
+        this.print_line(this._setPlayers[i].name, this._setPlayers[i].pos);
+      }
     }
   }
   finished() {
-    for (var i = 0; i < this._players.length; i++) {
-      if (this._players[i].position >= this._length) {
-        return this.winner();
-      }
-    }
+    do {
+        this.sleep(1000);
+        this.reset_board()
+        this.advanced_player()
+    } while(this._finish.isWinner === false)
+    console.log(this._finish.name + " is the Winner !!")
   }
-  winner() {
-    for (var i = 0; i < this._players.length; i++) {
-      if (this._players[i].position >= this._length) {
-        return ''+this._players[i]+' is the winner';
+  // winner() {
+  //
+  // }
+  sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+        break;
       }
     }
   }

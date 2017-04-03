@@ -13,6 +13,7 @@ function sleep(milliseconds) {
 
 // Your code here...
 let jsRacer = new JSRacer(['a', 'b', 'c', 'd', 'e'], 21, 0);
-jsRacer.print_board();
-jsRacer.advanced_player();
-console.log(jsRacer.finished());
+jsRacer.print_board()
+sleep(2000)
+jsRacer.reset_board()
+jsRacer.finished()
