@@ -8,7 +8,7 @@ class JSRacer {
     this.length = length;
     this.pos = pos;
     this.playersObj = this.create_player_obj();
-    this.winner = {name: '', isWin : false};
+    this.winner = {name: '', isWin : false}
   }
 
   create_player_obj() {
