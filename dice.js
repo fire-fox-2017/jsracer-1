@@ -5,6 +5,13 @@ class Dice {
     this.num = 0;
   }
 
+  roll() "use strict"
+
+class Dice {
+  constructor() {
+    this.num = 0;
+  }
+
   static roll() {
     let getRandomInt = (min, max) => {
       min = Math.ceil(min);
@@ -15,6 +22,11 @@ class Dice {
     }
     this.num = getRandomInt(1, 6);
     return this.num;
+  }
+}
+
+export default Dice{
+
   }
 }
 
