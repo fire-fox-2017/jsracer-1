@@ -63,10 +63,8 @@ class JSRacer {
     do {
       for (let i = 0; i < this._players.length; i++) {
         let currentPosition = this._players[i].position;
-        if (this._finishStatus === false) {
-          let diceRoll = dice.roll();
-          this._players[i].position = currentPosition + diceRoll;
-        }
+        let diceRoll = dice.roll();
+        this._players[i].position = currentPosition + diceRoll;
         if (this._players[i].position >= this._length-1) {
           this._finishStatus = true;
           this._players[i].position = this._length-1;
@@ -107,9 +105,6 @@ class JSRacer {
 
 }
 
-let race1 = new JSRacer(['a', 'b', 'c'], 20, 0);
-
-race1.advanced_player();
 
 
 export default JSRacer

@@ -11,4 +11,7 @@ function sleep(milliseconds) {
   }
 }
 
-// Your code here...
+// Your code here...''
+let race1 = new JSRacer(['a', 'b', 'c'], 20);
+
+race1.advanced_player();
